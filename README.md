@@ -38,5 +38,5 @@ Not all projects use the same stack or tools.
 Clone the repository:
 
 ```bash
-git clone https://github.com/<your-username>/repo-projects.git
+git clone https://github.com/guanming420/repo-projects.git
 cd repo-projects
