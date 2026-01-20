@@ -1,12 +1,88 @@
-# Objective
-This project explores how historical player performance metrics, team success, and contextual factors can be used to model and evaluate NBA MVP candidacy. Using past seasons as training data, the goal is to build an explainable framework that approximates how MVP voting outcomes have historically emerged, and to experiment with its application to future seasons.
+# NBA MVP Modeling (Historical + Future Seasons)
 
-# Problem Statement
-The NBA Most Valuable Player (MVP) award is decided through a voting process that is heavily influenced by narrative, media framing, and season-specific context. Evaluation criteria are not formally standardized and often vary across eras, making MVP outcomes difficult to explain, compare, or model consistently.
+This project builds an explainable, data-driven framework for modeling NBA MVP
+candidacy using historical player performance, team context, and season-specific
+signals, with the goal of evaluating and extending the approach to future seasons.
 
-As a result, purely statistical approaches often fail to capture how MVP candidates are realistically evaluated. This project investigates whether a structured, data-driven framework—combining individual performance metrics with contextual and team-level factors—can better approximate historical MVP voting patterns while remaining transparent and interpretable.
+## Project Status
 
-# Project Status
-🚧 Work in Progress (Learning & Research Project)
+Finished (Learning and Research Project)
 
-This repository is actively updated as assumptions are tested, features are refined, and modeling approaches evolve. Insights, limitations, and corrections are documented throughout the project to reflect the iterative nature of real-world data science work.
+This repository is complete and no longer under active development. It is
+maintained as a reference for the final analysis and results.
+
+Last evaluated: 2026-01-20
+
+## Repository Layout
+
+- `NBA_Dataset.csv`: Raw player-season dataset used as the source input.
+- `notebooks/01_data_cleaning.ipynb`: Data cleaning and validation.
+- `notebooks/02_eda.ipynb`: Exploratory analysis.
+- `notebooks/03_feature_engineering.ipynb`: Feature creation.
+- `notebooks/04_modelling.ipynb`: Modeling and evaluation.
+- `docs/`: Step-by-step notes that mirror the notebook pipeline.
+
+## Pipeline Outputs
+
+- `data/cleaned.parquet`: Cleaned, validated dataset.
+- `data/features.parquet`: Feature-engineered dataset for modeling.
+
+## Results (Latest Run)
+
+Metrics from `notebooks/04_modelling.ipynb`:
+
+- ElasticNet (test): RMSE 0.0487, MAE 0.0231, R2 0.2305
+- XGBoost (test): RMSE 0.0289, MAE 0.0039, R2 0.7277
+- MVP candidates (non-zero `award_share`, test):
+  - XGBoost: RMSE 0.1864, MAE 0.1293, R2 0.6152
+  - ElasticNet: RMSE 0.2556, MAE 0.1905, R2 0.2764
+- Top-1 MVP hit rate: 0.8333
+- Mean Spearman rank correlation by season: 0.5226
+
+Re-run the modelling notebook to refresh these metrics when the dataset changes.
+
+## Getting Started
+
+### Requirements
+
+- Python 3.10+ (or compatible)
+- `pip`
+
+### Setup
+
+```bash
+python -m venv .venv
+.\.venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### Run the Pipeline
+
+Run the notebooks in order:
+
+1. `notebooks/01_data_cleaning.ipynb`
+2. `notebooks/02_eda.ipynb`
+3. `notebooks/03_feature_engineering.ipynb`
+4. `notebooks/04_modelling.ipynb`
+
+The docs folder provides concise descriptions of each step:
+
+- `docs/01_data_cleaning.md`
+- `docs/02_eda.md`
+- `docs/03_feature_engineering.md`
+- `docs/04_modelling.md`
+
+## Reproducibility Notes
+
+To reproduce results across time, keep fixed snapshots of `NBA_Dataset.csv`
+instead of overwriting the file. For example, store dated copies in a
+`data/raw/` folder and rerun the pipeline against a specific snapshot.
+
+## Assumptions and Checks
+
+- `docs/assumptions.md`
+- `docs/data_leakage_checks.md`
+
+## License
+
+See `LICENSE`.
